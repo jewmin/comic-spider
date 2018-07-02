@@ -60,7 +60,7 @@ from multiprocessing import Process, Queue, Pool
 
 def download_one(img):
     """ 下载一张图片 """
-    url, directory, filepath = img
+    url, directory, filepath, _ = img
     # 如果文件已经存在，放弃下载
     if os.path.exists(filepath):
         print('exists:', filepath)

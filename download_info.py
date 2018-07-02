@@ -46,6 +46,9 @@ def download_page(url):
     if len(rsp.content) == 0:
         return None, None
     soup = BeautifulSoup(rsp.content, "html.parser")
+    if len(soup.contents) == 0:
+        return None, None
+
     img_tag = soup.find("div", {"id": "manga"}).find_all("img")
     for img in img_tag:
         if img.get("alt", None) is not None:

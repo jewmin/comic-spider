@@ -10,7 +10,7 @@ def download_info():
     """ 下载列表页（包含所有对图片的描述信息），并存储到data/info.txt文件中 """
     chapter_list = []
 
-    url = 'https://m.k886.net/comic/name/17種性幻想情侶遊戲/id/33109'
+    url = 'https://m.k886.net/comic/name/偷窺/id/35166'
     rsp = requests.get(url)
     soup = BeautifulSoup(rsp.content, "html.parser")
     li_tag = soup.find("div", {"id": "chapterList"}).find_all("li")

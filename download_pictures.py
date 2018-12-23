@@ -3,13 +3,14 @@ import os
 import json
 import requests
 import time
+import config
 
 
 def get_link_info():
     """ 获取所有图片组的链接 """
     res = []
     try:
-        with open('data/info.txt', 'r') as f:
+        with open(os.path.join('data', config.config["dir"], config.config["file"]), 'r') as f:
             for line in f:
                 data = json.loads(line)
                 res.append(data["link"])
@@ -21,7 +22,7 @@ def get_link_info():
 def get_info():
     """ 获取所有图片组的信息 """
     res = []
-    with open('data/info.txt', 'r') as f:
+    with open(os.path.join('data', config.config["dir"], config.config["file"]), 'r') as f:
         for line in f:
             data = json.loads(line)
             res.append(data)
@@ -37,7 +38,7 @@ def get_info_imgs(info):
         for pic_url in picture:
             url = pic_url
             pic = pic_url[pic_url.rfind("/") + 1:]
-            directory = os.path.join("data", title)
+            directory = os.path.join("data", config.config["dir"], title)
             filepath = os.path.join(directory, pic)
             # 每张图片一组，包含 图片url，所在目录，存储路径
             res.append((

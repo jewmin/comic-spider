@@ -1,16 +1,24 @@
 # -*- coding: utf-8 -*-
+import os
 import requests
 import json
 import time
 from bs4 import BeautifulSoup
 import download_pictures
+import config
+
+
+def convert_unicode(string):
+    if not isinstance(string, unicode):
+        return string.decode("utf-8")
+    return string
 
 
 def download_info():
     """ 下载列表页（包含所有对图片的描述信息），并存储到data/info.txt文件中 """
     chapter_list = []
 
-    url = 'https://m.k886.net/comic/name/偷窺/id/35166'
+    url = convert_unicode(config.config["url"])
     rsp = requests.get(url)
     soup = BeautifulSoup(rsp.content, "html.parser")
     li_tag = soup.find("div", {"id": "chapterList"}).find_all("li")
@@ -42,6 +50,7 @@ def download_info():
 def download_page(url):
     """ 下载某页面的信息 """
     page_img = None
+    url = convert_unicode(url)
     rsp = requests.get(url)
     if len(rsp.content) == 0:
         return None, None
@@ -69,7 +78,7 @@ def download_page(url):
 def save_page(chapter):
     """ 保存某页面的信息 """
     txt = json.dumps(chapter)
-    with open('data/info.txt', 'a') as f:
+    with open(os.path.join('data', config.config["dir"], config.config["file"]), 'a') as f:
         f.write(txt)
         f.write('\n')
 

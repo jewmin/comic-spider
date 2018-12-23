@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 from download_pictures import get_info, get_info_imgs, download
+import config
 
 def generate_html(imgs):
     """ 生成html """
@@ -25,7 +26,7 @@ def generate_html(imgs):
         content[title] = chapter + u'<a style="font-size:18px;" href="' + next_chapter + u'">下一页</a></body></html>'
         next_chapter = title + '.html'
     for title, chapter in content.iteritems():
-        html = os.path.join("data", title + '.html')
+        html = os.path.join("data", config.config["dir"], title + '.html')
         with open(html, 'wb') as f:
             f.write(chapter.encode("gbk"))
             print('end generate', title)
